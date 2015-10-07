@@ -11,13 +11,28 @@
 		karma——前端自动化测试工具
 **/
 
+'use strict';
 // 包装函数 
 module.exports = function(grunt) {
+	// 使用该插件，就不需要手动grunt.loadNpmTasks其他以grunt-*开头的插件，详情请看http://www.tuicool.com/articles/yABV73
+	require('load-grunt-tasks')(grunt);
+
 	// 配置任务，所有插件的配置信息
 	grunt.initConfig({
 
 		// 获取 package.json 信息
 		pkg: grunt.file.readJSON('package.json'),
+
+		// Run 'grunt bower' in terminal to load the Bower dependencies
+		bower: {
+			install: {
+				options: {
+					targetDir: './app/vendor',
+					cleanTargetDir: true,
+					layout: 'byComponent'
+				}
+			}
+		},
 
 		// 配置uglify插件，压缩js
 		uglify: {
@@ -119,17 +134,9 @@ module.exports = function(grunt) {
 		}
 	});
 
-	// 加载插件
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-csslint');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-nodemon');
-	grunt.loadNpmTasks('grunt-concurrent');
-
 	// 注册任务
-	grunt.registerTask('default', ['concurrent']);
+	grunt.registerTask('develop', ['concurrent']);
+	grunt.registerTask('update', ['bower']);
 	grunt.registerTask('compress js', ['jshint', 'uglify']);
 	grunt.registerTask('compress css', ['csslint', 'cssmin']);
 };

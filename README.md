@@ -7,8 +7,9 @@ How to Set Up:
 2. cd framework
 3. npm install
 4. bower install
-5. grunt
-6. 浏览器输入localhost:5000/framework/home
+5. grunt update
+6. grunt develop
+7. 浏览器输入localhost:5000/framework/home
 
 This project has used MEAN(Mongo, Express, AngularJS, NodeJS) framework. The following is the file structure:
 
