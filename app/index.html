@@ -6,22 +6,28 @@
 		<title>cftvc</title>
 		<meta name="description" content="Copyright xiaolonglin">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<!-- <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" type="text/css" href="bower_components/jquery-ui/themes/base/jquery-ui.min.css">
-		<link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css"> -->
 		<!-- <link rel="stylesheet" type="text/css" href="styles/screen.css"> -->
-		<link rel="stylesheet" type="text/css" href="styles/default.css">
-
-		<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-		<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-		<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-		<script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- <link rel="stylesheet" type="text/css" href="styles/default.css"> -->
 	</head>
-	<body ng-app="framework">
+	<body>
 		<div ui-view></div>
-		<script type="text/javascript" src="app.js"></script>
-		<script type="text/javascript" src="features/home/home-controller.js"></script>
+		<script src="./vendor/requirejs/require.js"></script>
+		<script src="./config/require_config.js"></script>
+		<script>
+			// Need to ensure that the shared_require_config is loaded before any of app's dependencies load.
+			requirejs(['shared_require_config'], function() {
+				requirejs(['angular', 'ui.router'], function() {
+					requirejs(['app'], function(app) {
+						// console.log(app);
+						// app.init();
+						// alert('loaded');
+					});
+				});
+			});
+		</script>
 	</body>
 </html>
