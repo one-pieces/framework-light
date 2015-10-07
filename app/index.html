@@ -20,12 +20,8 @@
 		<script>
 			// Need to ensure that the shared_require_config is loaded before any of app's dependencies load.
 			requirejs(['shared_require_config'], function() {
-				requirejs(['angular', 'ui.router'], function() {
-					requirejs(['app'], function(app) {
-						// console.log(app);
-						// app.init();
-						// alert('loaded');
-					});
+				requirejs(['app'], function(app) {
+					app.init();
 				});
 			});
 		</script>

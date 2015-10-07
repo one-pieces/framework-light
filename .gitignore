@@ -1,6 +1,10 @@
-node_modules
 bower_components
+build
+node_modules
+
 app/vendor
+app/.*.ts
 
 npm-debug.log
 .idea
+.tscache

@@ -1,5 +1,7 @@
-(function() {
-    requirejs.onError = function(err) {
+/// <reference path='../../node_modules/node-shared-typescript-defs/requirejs/require.d.ts' />
+
+(() => {
+    requirejs.onError = function(err: any) {
         console.error(err && (err.stack || err.message || err.toString()) || err);
         throw err;
     };

@@ -126,8 +126,31 @@ module.exports = function(grunt) {
 			}
 		},
 
+		// Typescript
+		ts: {
+			options: {
+				compiler: 'node_modules/typescript/bin/tsc',
+				module: 'amd',
+				removeComments: false,
+				target: 'es5',
+				sourceMap: true,
+				noImplicitAny: true
+			},
+
+			build: {
+				src: 'app/**/*.ts',
+				outDir: 'build/develop'
+			},
+
+			watch: {
+				src: 'app/**/*.ts',
+				watch: 'app',
+				outDir: 'build/develop'
+			}
+		},
+
 		concurrent: {
-			tasks: ['nodemon', 'watch'],
+			tasks: ['nodemon', 'watch', 'ts:watch'],
 			options: {
 				logConcurrentOutput: true
 			}
@@ -135,8 +158,9 @@ module.exports = function(grunt) {
 	});
 
 	// 注册任务
+	grunt.registerTask('build', ['ts:build']);
 	grunt.registerTask('develop', ['concurrent']);
-	grunt.registerTask('update', ['bower']);
+	grunt.registerTask('update', ['bower', 'build']);
 	grunt.registerTask('compress js', ['jshint', 'uglify']);
 	grunt.registerTask('compress css', ['csslint', 'cssmin']);
 };

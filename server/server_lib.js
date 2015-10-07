@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var express = require('express');
-// var morgan = require('morgan');
-// var compress = require('compress');
+var morgan = require('morgan');
+var compress = require('compression');
 var bodyParser = require('body-parser');
 var path = require('path');
 var ejs = require('ejs');
@@ -12,12 +12,14 @@ var serverMode = require('./server_mode.js');
 
 exports.createApp = function(callback) {
     var app = express();
+    var staticPath = './build/develop';
 
-    // if (process.env.NODE_ENV === serverMode.DEVELOPMENT_MODE) {
-    //     app.use(morgan('dev'));
-    // } else {
-    //     app.use(compress());
-    // };
+    if (process.env.NODE_ENV === serverMode.DEVELOPMENT_MODE) {
+        app.use(morgan('dev'));
+    } else {
+        staticPath = './build/dist';
+        app.use(compress());
+    }
 
     app.use(bodyParser.urlencoded({
         extended: true
@@ -36,7 +38,7 @@ exports.createApp = function(callback) {
 
     // app.use(express.static(path.join(__dirname, 'app')));
     app.use(express.static('./app'));
-    app.use(express.static('./'));
+    app.use(express.static(staticPath)); //Serve compiled files out of build
 
     require('./server-routers.js')(app);
 
